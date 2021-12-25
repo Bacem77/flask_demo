@@ -1,6 +1,17 @@
 name: Easy Tests
 on: [push]
 jobs:
+  # Lint:
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     matrix:
+  #       python-version: ['3.8']
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - run: ls
+  #     - run: pip install -r ./requirements-dev.txt
+  #     - run: flake8
+  
   Tests:
       runs-on: ubuntu-latest
       strategy:
