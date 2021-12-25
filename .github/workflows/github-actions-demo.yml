@@ -1,17 +1,6 @@
 name: Easy Tests
 on: [push]
 jobs:
-  # Lint:
-  #   runs-on: ubuntu-latest
-  #   strategy:
-  #     matrix:
-  #       python-version: ['3.8']
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - run: ls
-  #     - run: pip install -r ./requirements-dev.txt
-  #     - run: flake8
-  
   Tests:
       runs-on: ubuntu-latest
       strategy:
@@ -50,3 +39,13 @@ jobs:
 
         - name: Image digest
           run: echo ${{ steps.docker_build.outputs.digest }}
+    deploy:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+        - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+          with:
+            heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+            heroku_app_name: "flask-demo-cicd" #Must be unique in Heroku
+            heroku_email: "bacem.zarai@insat.u-carthage.tn"
+            usedocker: true 
