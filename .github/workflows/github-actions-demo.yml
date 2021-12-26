@@ -13,6 +13,7 @@ jobs:
   #     - run: flake8
   
   Tests:
+      name: Tests
       runs-on: ubuntu-latest
       strategy:
         matrix:
@@ -22,7 +23,9 @@ jobs:
         - run: ls
         - run: pip install -r ./requirements-dev.txt
         - run: pytest
-  build:
+  Build:
+      name: Build
+      needs: Tests
       runs-on: ubuntu-latest
       steps:
     
@@ -50,7 +53,9 @@ jobs:
 
         - name: Image digest
           run: echo ${{ steps.docker_build.outputs.digest }}
-  deploy:
+  Deploy:
+      name: Deploy
+      needs: Build
       runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v2
